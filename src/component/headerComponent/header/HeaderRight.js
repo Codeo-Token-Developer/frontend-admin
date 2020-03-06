@@ -1,7 +1,10 @@
 import React, { useContext } from 'react'
 import { Link, useRouteMatch, useHistory } from 'react-router-dom'
-import { adminContext } from '../../../Context'
+import { userContext } from '../../../Context'
 import Swal from 'sweetalert2'
+
+//auth;
+import Auth from '../../../Auth';
 
 export const HeaderRight = () => {
     return(
@@ -60,36 +63,35 @@ function AuthOne(props){
 function AuthTwo(props){
     let history = useHistory();
 
-    let admin = useContext(adminContext);
+    let user = useContext(userContext);
 
     let { url } = useRouteMatch();
 
     const logout = () => {
-        Swal.showLoading(() => {
+        Swal.showLoading();
+        Auth.logout(() => {
             localStorage.removeItem('codeoToken')
             history.push('/');
         })
         Swal.close();
-    }
+    };
 
     return(
-        <>
-            <li className="dropdown">
-                <button style={{backgroundColor: '#1c233f', border: 'none'}} className="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" role="button" aria-haspopup="false" aria-expanded="false">
-                    <img src="../assets/images/users/user-4.jpg" alt="profile-user" className="rounded-circle" />
-                    <span className="ml-1 nav-user-name hidden-sm" style={{color: 'white'}}> Amelia <i className="mdi mdi-chevron-down" /> </span>
-                </button>
-                <div className="dropdown-menu dropdown-menu-right">
-                    <Link to={`${url}/profile`}>
-                        <button className="dropdown-item">
-                            <i className="dripicons-user text-muted mr-2" /> Profile
-                        </button>
-                    </Link>
-                    <div className="dropdown-divider" />
-                    <button className="dropdown-item" type="button" onClick={logout}><i className="dripicons-exit text-muted mr-2" /> Logout</button>
-                </div>
-            </li>
-        </>
+        <li className="dropdown">
+            <button style={{backgroundColor: '#1c233f', border: 'none'}} className="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" role="button" aria-haspopup="false" aria-expanded="false">
+                <img src="../assets/images/users/user-4.jpg" alt="profile-user" className="rounded-circle" />
+                <span className="ml-1 nav-user-name hidden-sm" style={{color: 'white'}}> Ivan <i className="mdi mdi-chevron-down" /> </span>
+            </button>
+            <div className="dropdown-menu dropdown-menu-right">
+                {/* <Link to={`${url}/profile`}> */}
+                    <button className="dropdown-item">
+                        <i className="dripicons-user text-muted mr-2" /> Profile
+                    </button>
+                {/* </Link> */}
+                <div className="dropdown-divider" />
+                <button className="dropdown-item" type="button" onClick={logout} ><i className="dripicons-exit text-muted mr-2" /> Logout</button>
+            </div>
+        </li>
     )
 }
 

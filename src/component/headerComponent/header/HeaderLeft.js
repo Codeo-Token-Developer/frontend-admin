@@ -3,7 +3,7 @@ import React from 'react'
 export const HeaderLeft = (props) => {
     return(
         <div className="topbar-left">
-            <a href="../analytics/analytics-index.html" className="logo">
+            <a href="/" className="logo">
                 <span>
                 <img src="../assets/images/codeoku.png" alt="logo-small" className="logo-sm" />
                 </span>

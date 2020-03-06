@@ -5,15 +5,12 @@ import { HeaderRight } from './header/HeaderRight';
 const Header = () => {
         return (
             <div>
-                <nav className="topbar">
+                <div className="topbar">
                     
-                    <HeaderLeft />
-                    <HeaderRight />
-                    <ul className="list-unstyled topbar-nav mb-0">
+                        <HeaderLeft />
+                        <HeaderRight />
 
-                    </ul>
-
-                </nav>
+                </div>
             </div>
         )
 }

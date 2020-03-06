@@ -1,10 +1,15 @@
 import React from 'react'
-import { CardDashboardBottomComponent, CardDashboardHeaderComponent } from '../component/mainPageComponent/cardDashboardComponent/CardDashboardComponent';
+import { 
+    CardDashboardBottomComponent, 
+    CardDashboardHeaderComponent,
+    TableDashboardNewUserJustLoginComponent,
+    TableDashboardUserNewKYCAppComponent 
+} from '../component/mainPageComponent/cardDashboardComponent/CardDashboardComponent';
+import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
 function Dashboard(){
     return (
-        <div>
- 
+        <>
             <div className="row">
                 <div className="col-sm-12">
                     <div className="page-title-box">
@@ -18,10 +23,8 @@ function Dashboard(){
                     </div>
                 </div>
             </div>
-
-            <CardDashboard />
-
-        </div>
+            <CardDashboard /> 
+        </>
     )
 }
 
@@ -131,128 +134,17 @@ const CardDashboard = (props) => {
                 </div> */}
             </div>
             
-            <div className="row">
-                    <div className="col-6">
-                        <div className="card">
-                            <div className="card-body order-list">
-                                <h4 className="header-title mt-0 mb-3">New User Just Login</h4>
-                                <div className="table-responsive">
-                                    <table className="table table-hover mb-0">
-                                        <thead className="thead-light">
-                                            <tr>
-                                                <th className="border-top-0">Nama</th>
-                                                <th className="border-top-0">Country</th>
-                                                <th className="border-top-0">Date/Time</th>
-                                                <th className="border-top-0">Status</th>
-                                            </tr>{/*end tr*/}
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Master Thomas</td>
-                                                <td>Indonesia</td>
-                                                <td>17-02-2020 09:00 AM</td>
-                                                <td><span className="badge badge-boxed badge-soft-success">Log In</span></td>
-                                            </tr>{/*end tr*/}
-                                            <tr>
-                                                <td>Noob Ivan</td>
-                                                <td>Indonesia</td>
-                                                <td>17-02-2020 10:00 AM</td>
-                                                <td><span className="badge badge-boxed badge-soft-success">Log In</span></td>
-                                            </tr>{/*end tr*/}
-                                            <tr>
-                                                <td>CEO Agatha</td>
-                                                <td>Indonesia</td>
-                                                <td>17-02-2020 08:18 AM</td>
-                                                <td><span className="badge badge-boxed badge-soft-danger">Log Out</span></td>
-                                            </tr>{/*end tr*/}
-                                            <tr>
-                                                <td>Leader Wimora</td>
-                                                <td>Indonesia</td>
-                                                <td>17-02-2020 09:00 AM</td>
-                                                <td><span className="badge badge-boxed badge-soft-success">Log In</span></td>
-                                            </tr>{/*end tr*/}
-                                            <tr>
-                                                <td>Senior Shella</td>
-                                                <td>Indonesia</td>
-                                                <td>17-02-2020 09:00 AM</td>
-                                                <td><span className="badge badge-boxed badge-soft-danger">Log Out</span></td>
-                                            </tr>{/*end tr*/}
-                                            <tr>
-                                                <td>Dr. Chris</td>
-                                                <td>Indonesia</td>
-                                                <td>17-02-2020 08:50 AM</td>
-                                                <td><span className="badge badge-boxed badge-soft-success">Log In</span></td>
-                                            </tr>{/*end tr*/}
-                                        </tbody>
-                                    </table> {/*end table*/}
-                                </div>{/*end /div*/}
-                            </div>{/*end card-body*/}
-                        </div>{/*end card*/}
-                    </div>{/*end col*/}
-                    <div className="col-6">
-                        <div className="card">
-                            <div className="card-body order-list">
-                                <h4 className="header-title mt-0 mb-3">New KYC Application</h4>
-                                <div className="table-responsive">
-                                    <table className="table table-hover mb-0">
-                                        <thead className="thead-light">
-                                            <tr>
-                                                <th className="border-top-0">Date</th>
-                                                <th className="border-top-0">Name</th>
-                                                <th className="border-top-0">Action</th>
-                                            </tr>{/*end tr*/}
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>17-02-2020 09:00 AM</td>
-                                                <td>Master Thomas</td>
-                                                <td>
-                                                    <button className="btn btn-xs btn-danger">View Details</button>
-                                                </td>
-                                            </tr>{/*end tr*/}
-                                            <tr>
-                                                <td>17-02-2020 10:00 AM</td>
-                                                <td>Noob Ivan</td>
-                                                <td>
-                                                    <button className="btn btn-xs btn-danger">View Details</button>
-                                                </td>
-                                            </tr>{/*end tr*/}
-                                            <tr>
-                                                <td>17-02-2020 08:18 AM</td>
-                                                <td>CEO Agatha</td>
-                                                <td>
-                                                    <button className="btn btn-xs btn-danger">View Details</button>
-                                                </td>
-                                            </tr>{/*end tr*/}
-                                            <tr>
-                                                <td>17-02-2020 09:00 AM</td>
-                                                <td>Leader Wimora</td>
-                                                <td>
-                                                    <button className="btn btn-xs btn-danger">View Details</button>
-                                                </td>
-                                            </tr>{/*end tr*/}
-                                            <tr>
-                                                <td>17-02-2020 09:00 AM</td>
-                                                <td>Senior Shella</td>
-                                                <td>
-                                                    <button className="btn btn-xs btn-danger">View Details</button>
-                                                </td>
-                                            </tr>{/*end tr*/}
-                                            <tr>
-                                                <td>17-02-2020 08:50 AM</td>
-                                                <td>Dr. Chris</td>
-                                                <td>
-                                                    <button className="btn btn-xs btn-danger">View Details</button>
-                                                </td>
-                                            </tr>{/*end tr*/}
-                                        </tbody>
-                                    </table> {/*end table*/}
-                                </div>{/*end /div*/}
-                            </div>{/*end card-body*/}
-                        </div>{/*end card*/}
-                    </div>{/*end col*/}
-                </div>{/*end row*/}
+            <CardTableDashboard />
             
+        </div>
+    )
+}
+
+const CardTableDashboard = () => {
+    return(
+        <div className="row">
+            <TableDashboardNewUserJustLoginComponent />
+            <TableDashboardUserNewKYCAppComponent />
         </div>
     )
 }

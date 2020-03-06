@@ -5,16 +5,10 @@ import { Route, Switch, useHistory, Redirect } from "react-router-dom";
 
 //Pages
 import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
-import UserManagement from "./pages/UserManagement";
-import CMSUpdate from "./pages/CMSUpdate";
-import Ledger from "./pages/Ledger";
-import KYCApproval from "./pages/KYCApproval";
+import MainPage from "./pages/MainPage";
 
 //Auth
 import auth from "./Auth";
-import Header from "./component/headerComponent/Header";
-import NavLeft from "./component/navbarComponent/NavLeft";
 
 function App() {
   let history = useHistory();
@@ -33,23 +27,15 @@ function App() {
 
   return (
     <>
-      <Header />
-      <div className="page-wrapper">
-        <NavLeft/>
-
-        <div className="page-content">
-          <div className="container-fluid">
-            <Switch>
-              <Route exact path="/" component={Login} />
-              <Route path="/dashboard" component={Dashboard} />
-              <Route path="/userManagement" component={UserManagement} />
-              <Route path="/cmsUpdate" component={CMSUpdate} />
-              <Route path="/ledger" component={Ledger} />
-              <Route path="/kycApproval" component={KYCApproval} />
-            </Switch>
-          </div>
-        </div>
-      </div>
+      
+      <Switch>
+        <Route exact path="/" component={Login} />
+        <Route path="/dashboard" component={MainPage} />
+        <Route path="/userManagement" component={MainPage} />
+        <Route path="/cmsUpdate" component={MainPage} />
+        <Route path="/ledger" component={MainPage} />
+        <Route path="/kycApproval" component={MainPage} />
+      </Switch>
 
     </>
   );
