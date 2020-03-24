@@ -1,14 +1,25 @@
 import React, { useEffect } from "react";
 
 // Router
-import { Route, Switch, useHistory, Redirect } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    Route,
+    Switch,
+    useHistory,
+    Redirect
+} from "react-router-dom";
 
 //Pages
 import Login from "./pages/Login";
 import MainPage from "./pages/MainPage";
+import UserManagement from "./pages/UserManagement";
+import CMSUpdate from "./pages/CMSUpdate";
+import Ledger from "./pages/Ledger";
+import KYCApproval from "./pages/KYCApproval";
 
 //Auth
 import auth from "./Auth";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
     let history = useHistory();
@@ -27,14 +38,31 @@ function App() {
 
     return (
         <>
-            <Switch>
-                <Route exact path="/" component={Login} />
-                <Route path="/dashboard" component={MainPage} />
-                <Route path="/userManagement" component={MainPage} />
-                <Route path="/cmsUpdate" component={MainPage} />
-                <Route path="/ledger" component={MainPage} />
-                <Route path="/kycApproval" component={MainPage} />
-            </Switch>
+            <Router>
+                <Switch>
+                    <Route exact path="/">
+                        <Login />
+                    </Route>
+                    <Route path="/dashboard">
+                        <Dashboard />
+                    </Route>
+                    <Route path="/mainpage">
+                        <MainPage />
+                    </Route>
+                    <Route path="/userManagement">
+                        <UserManagement />
+                    </Route>
+                    <Route path="/cmsUpdate">
+                        <CMSUpdate />
+                    </Route>
+                    <Route path="/ledger">
+                        <Ledger />
+                    </Route>
+                    <Route path="/kycApproval">
+                        <KYCApproval />
+                    </Route>
+                </Switch>
+            </Router>
         </>
     );
 }
