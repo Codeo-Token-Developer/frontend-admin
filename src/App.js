@@ -12,14 +12,9 @@ import {
 //Pages
 import Login from "./pages/Login";
 import MainPage from "./pages/MainPage";
-import UserManagement from "./pages/UserManagement";
-import CMSUpdate from "./pages/CMSUpdate";
-import Ledger from "./pages/Ledger";
-import KYCApproval from "./pages/KYCApproval";
 
 //Auth
 import auth from "./Auth";
-import Dashboard from "./pages/Dashboard";
 
 function App() {
     let history = useHistory();
@@ -40,27 +35,15 @@ function App() {
         <>
             <Router>
                 <Switch>
-                    <Route exact path="/">
-                        <Login />
-                    </Route>
-                    <Route path="/dashboard">
-                        <Dashboard />
-                    </Route>
-                    <Route path="/mainpage">
-                        <MainPage />
-                    </Route>
-                    <Route path="/userManagement">
-                        <UserManagement />
-                    </Route>
-                    <Route path="/cmsUpdate">
-                        <CMSUpdate />
-                    </Route>
-                    <Route path="/ledger">
-                        <Ledger />
-                    </Route>
-                    <Route path="/kycApproval">
-                        <KYCApproval />
-                    </Route>
+                    <Route exact path="/" component={Login} />
+                    <ProtectedRoute path="/dashboard" component={MainPage} />
+                    <ProtectedRoute
+                        path="/userManagement"
+                        component={MainPage}
+                    />
+                    <ProtectedRoute path="/cmsUpdate" component={MainPage} />
+                    <ProtectedRoute path="/ledger" component={MainPage} />
+                    <ProtectedRoute path="/kycApproval" component={MainPage} />
                 </Switch>
             </Router>
         </>
