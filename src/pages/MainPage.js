@@ -26,6 +26,8 @@ function Main(data){
   useEffect(()=>{
     if(!status){
       data.Dashboard();
+      //Your get getdata
+      //all get data
     }
   },[data]);
 }
