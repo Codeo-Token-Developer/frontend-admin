@@ -30,10 +30,18 @@ function Dashboard() {
           </div>
         </div>
       </div>
-      <CardDashboard totalUsers={(dashboard.Dashboard===undefined||dashboard.Dashboard===null)?"0":dashboard.Dashboard.totalUsers} />
+      <CardDashboard
+      totalUsers={(dashboard.Dashboard===undefined||dashboard.Dashboard===null)?"0":dashboard.Dashboard.totalUsers}
+      totalActiveUsers={(dashboard.Dashboard===undefined||dashboard.Dashboard===null)?"0":dashboard.Dashboard.totalActiveUsers}
+      totalGenerateWallets={(dashboard.Dashboard===undefined||dashboard.Dashboard===null)?"0":dashboard.Dashboard.totalGenerateWallets}
+      totalVerifiedUsers={(dashboard.Dashboard===undefined||dashboard.Dashboard===null)?"0":dashboard.Dashboard.totalVerifiedUsers}
+      totalTransactions={(dashboard.Dashboard===undefined||dashboard.Dashboard===null)?"0":dashboard.Dashboard.totalTransactions}
+      totalActiveWallets={(dashboard.Dashboard===undefined||dashboard.Dashboard===null)?"0":dashboard.Dashboard.totalActiveWallets}
+       />
     </>
   );
 }
+
 
 const CardDashboard = props => {
   return (
@@ -42,7 +50,7 @@ const CardDashboard = props => {
         <div className="col-lg-3">
           <CardDashboardComponent
             titleData="Total User" /*====== Text Data For Card ======*/
-            totalCount={props.totalUsers} /*====== Total Count Data ======*/
+            totalCount={(props.totalUsers===undefined)?"Loading ...":props.totalUsers} /*====== Total Count Data ======*/
             upDownClass="mdi mdi-trending-up" /*====== Set Icon Up or Down Total Data ======*/
             upDownText="text-success" /*====== Set Color For Icon Up or Down (text-success = Green Color) / (text-danger = Red Color) ======*/
             percentData="5.5%" /*====== Total Percent Up or Down Today ======*/
@@ -55,7 +63,7 @@ const CardDashboard = props => {
         <div className="col-lg-3">
           <CardDashboardComponent
             titleData="Active User" /*====== Text Data For Card ======*/
-            totalCount="18.020" /*====== Total Count Data ======*/
+            totalCount={(props.totalActiveUsers===undefined)?"Loading ...":props.totalActiveUsers} /*====== Total Count Data ======*/
             upDownClass="mdi mdi-trending-up" /*====== Set Icon Up or Down Total Data ======*/
             upDownText="text-success" /*====== Set Color For Icon Up or Down (text-success = Green Color) / (text-danger = Red Color) ======*/
             percentData="1.5%" /*====== Total Percent Up or Down Today ======*/
@@ -68,7 +76,7 @@ const CardDashboard = props => {
         <div className="col-lg-3">
           <CardDashboardComponent
             titleData="Verified Users" /*====== Text Data For Card ======*/
-            totalCount="9.523" /*====== Total Count Data ======*/
+            totalCount={(props.totalVerifiedUsers===undefined)?"Loading ...":props.totalVerifiedUsers} /*====== Total Count Data ======*/
             upDownClass="mdi mdi-trending-down" /*====== Set Icon Up or Down Total Data ======*/
             upDownText="text-danger" /*====== Set Color For Icon Up or Down (text-success = Green Color) / (text-danger = Red Color) ======*/
             percentData="4%" /*====== Total Percent Up or Down Today ======*/
@@ -81,7 +89,7 @@ const CardDashboard = props => {
         <div className="col-lg-3">
           <CardDashboardComponent
             titleData="Total Transaction" /*====== Text Data For Card ======*/
-            totalCount="6.521" /*====== Total Count Data ======*/
+            totalCount={(props.totalTransactions===undefined)?"Loading ...":props.totalTransactions} /*====== Total Count Data ======*/
             upDownClass="mdi mdi-trending-up" /*====== Set Icon Up or Down Total Data ======*/
             upDownText="text-success" /*====== Set Color For Icon Up or Down (text-success = Green Color) / (text-danger = Red Color) ======*/
             percentData="4%" /*====== Total Percent Up or Down Today ======*/
@@ -97,7 +105,7 @@ const CardDashboard = props => {
         <div className="col-lg-3">
           <CardDashboardComponent
             titleData="User Register Today" /*====== Text Data For Card ======*/
-            totalCount="246" /*====== Total Count Data ======*/
+            totalCount="-1" /*====== Total Count Data ======*/
             upDownClass="mdi mdi-trending-up" /*====== Set Icon Up or Down Total Data ======*/
             upDownText="text-success" /*====== Set Color For Icon Up or Down (text-success = Green Color) / (text-danger = Red Color) ======*/
             percentData="9%" /*====== Total Percent Up or Down Today ======*/
@@ -106,11 +114,11 @@ const CardDashboard = props => {
             setIcon="dripicons-user-group" /*====== For Change Icon Can Change Here Using Dripicons ======*/
           />
         </div>
-
+          {/*totalUsers:0,totalActiveUsers:0,totalGenerateWallets:0,totalVerifiedUsers:0,totalTransactions:0,totalActiveWallets:0*/}
         <div className="col-lg-3">
           <CardDashboardComponent
             titleData="Total Generate Wallet" /*====== Text Data For Card ======*/
-            totalCount="2.525" /*====== Total Count Data ======*/
+            totalCount={(props.totalGenerateWallets===undefined)?"Loading ...":props.totalGenerateWallets} /*====== Total Count Data ======*/
             upDownClass="mdi mdi-trending-up" /*====== Set Icon Up or Down Total Data ======*/
             upDownText="text-success" /*====== Set Color For Icon Up or Down (text-success = Green Color) / (text-danger = Red Color) ======*/
             percentData="72.5%" /*====== Total Percent Up or Down Today ======*/
@@ -123,7 +131,7 @@ const CardDashboard = props => {
         <div className="col-lg-3">
           <CardDashboardComponent
             titleData="Total Active Wallet" /*====== Text Data For Card ======*/
-            totalCount="7.224" /*====== Total Count Data ======*/
+            totalCount={(props.totalActiveWallets===undefined)?"Loading ...":props.totalActiveWallets} /*====== Total Count Data ======*/
             upDownClass="mdi mdi-trending-down" /*====== Set Icon Up or Down Total Data ======*/
             upDownText="text-danger" /*====== Set Color For Icon Up or Down (text-success = Green Color) / (text-danger = Red Color) ======*/
             percentData="18%" /*====== Total Percent Up or Down Today ======*/

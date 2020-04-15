@@ -16,7 +16,6 @@ import axios from "axios";
 
 export default function MainPage() {
   const baseUrl=useContext(urlContext);
-  let admin=useContext(userContext);
 
   const [status,setStatus]=useState(false);
   const [user,setUser]=useState([{totalUsers:0,totalActiveUsers:0,totalGenerateWallets:0,totalVerifiedUsers:0,totalTransactions:0,totalActiveWallets:0}]);
