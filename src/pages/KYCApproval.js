@@ -8,7 +8,7 @@ function KYCApproval() {
                     <div className="page-title-box">
                         <div className="float-right">
                             <ol className="breadcrumb">
-                                <li className="breadcrumb-item"><a href="javascript:void(0);">Admin</a></li>
+                                <li className="breadcrumb-item"><a href="#admin">Admin</a></li>
                                 <li className="breadcrumb-item active">KYC Approval</li>
                             </ol>
                         </div>
@@ -18,7 +18,7 @@ function KYCApproval() {
             </div>
 
             <CardKYCApproval />
-        </> 
+        </>
     )
 }
 
@@ -45,7 +45,7 @@ const CardKYCApproval = () => {
                         <tr>
                         <td>17-02-2020 05:45 AM</td>
                         <td>Dr. Chris</td>
-                        <td>drchris@gmail.com</td>                                   
+                        <td>drchris@gmail.com</td>
                         <td>Indonesia</td>
                         <td>
                             <button className="btn btn-xs btn-danger">Picture</button>
@@ -56,7 +56,7 @@ const CardKYCApproval = () => {
                         <tr>
                         <td>17-02-2020 11:23 AM</td>
                         <td>Master Thomas</td>
-                        <td>masterthomas@gmail.com</td>                                   
+                        <td>masterthomas@gmail.com</td>
                         <td>Indonesia</td>
                         <td>
                             <button className="btn btn-xs btn-danger">Picture</button>
@@ -67,7 +67,7 @@ const CardKYCApproval = () => {
                         <tr>
                         <td>17-02-2020 07:22 AM</td>
                         <td>Senior Shella</td>
-                        <td>seniorshella@gmail.com</td>                                   
+                        <td>seniorshella@gmail.com</td>
                         <td>Indonesia</td>
                         <td>
                             <button className="btn btn-xs btn-danger">Picture</button>
@@ -78,7 +78,7 @@ const CardKYCApproval = () => {
                         <tr>
                         <td>17-02-2020 03:44 AM</td>
                         <td>CEO Agatha</td>
-                        <td>ceoagtha@gmail.com</td>                                   
+                        <td>ceoagtha@gmail.com</td>
                         <td>Indonesia</td>
                         <td>
                             <button className="btn btn-xs btn-danger">Picture</button>
@@ -87,7 +87,7 @@ const CardKYCApproval = () => {
                         <td><span className="badge badge-boxed badge-danger">Unverified</span></td>
                         </tr>{/*end tr*/}
                     </tbody>
-                    </table> {/*end table*/}                                               
+                    </table> {/*end table*/}
                 </div>{/*end /div*/}
                 </div>{/*end card-body*/}
             </div>{/*end card*/}

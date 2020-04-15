@@ -4,7 +4,8 @@ import {
   TableDashboardNewUserJustLoginComponent,
   TableDashboardUserNewKYCAppComponent
 } from "../component/mainPageComponent/cardDashboardComponent/CardDashboardComponent";
-import { Switch, Route, useRouteMatch } from "react-router-dom";
+
+//import { Route, useRouteMatch } from "react-router-dom";
 
 function Dashboard() {
   return (
@@ -15,7 +16,7 @@ function Dashboard() {
             <div className="float-right">
               <ol className="breadcrumb">
                 <li className="breadcrumb-item">
-                  <a href="javascript:void(0);">Admin</a>
+                  <a href="#admin">Admin</a>
                 </li>
                 <li className="breadcrumb-item active">Dashboard</li>
               </ol>

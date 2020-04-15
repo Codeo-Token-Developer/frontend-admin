@@ -8,7 +8,7 @@ function UserManagement() {
                     <div className="page-title-box">
                         <div className="float-right">
                             <ol className="breadcrumb">
-                                <li className="breadcrumb-item"><a href="javascript:void(0);">Admin</a></li>
+                                <li className="breadcrumb-item"><a href="#a">Admin</a></li>
                                 <li className="breadcrumb-item active">User Management</li>
                             </ol>
                         </div>
@@ -18,7 +18,7 @@ function UserManagement() {
             </div>
             <CardUserManagement />
             <DropdownUserManagement />
-        </> 
+        </>
     )
 }
 
@@ -41,7 +41,7 @@ const CardUserManagement = () => {
                                     </tr>{/*end tr*/}
                                 </thead>
                                 <tbody>
-                                    
+
                                 </tbody>
                             </table>
                         </div>
