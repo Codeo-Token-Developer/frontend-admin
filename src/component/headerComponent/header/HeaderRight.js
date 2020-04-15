@@ -1,11 +1,11 @@
 import React from 'react'
 //import { Link, useRouteMatch,useHistory } from 'react-router-dom'
-import { useHistory } from 'react-router-dom';
 //import { userContext } from '../../../Context'
 import Swal from 'sweetalert2'
 
 //auth;
 import Auth from '../../../Auth';
+import { useHistory } from "react-router-dom";
 
 export const HeaderRight = () => {
     return(
@@ -70,10 +70,7 @@ function AuthTwo(props){
 
     const logout = () => {
         Swal.showLoading();
-        Auth.logout(() => {
-            localStorage.removeItem('codeoToken')
-            history.push('/');
-        })
+        Auth.onLogout(() =>history.push("/"));
         Swal.close();
     };
 

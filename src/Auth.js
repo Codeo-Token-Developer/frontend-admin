@@ -1,26 +1,21 @@
-class Authenticated {
-  constructor() {
-    this.authenticated = false;
+class Authentication {
+  constructor(){
+    this.isLogin=false;
   }
 
-  login(cb) {
-    this.authenticated = true;
-    cb();
+  onLogin(cb) {
+      this.isLogin = true;
+      cb();
   }
 
-  resetPassword(cb) {
-    this.authenticated = true;
-    cb();
+  onLogout(cb) {
+      this.isLogin = false;
+      localStorage.clear();
+      cb();
   }
 
-  logout(cb) {
-    this.authenticated = false;
-    cb();
-  }
+};
 
-  isAuthenticated() {
-    return this.authenticated;
-  }
-}
 
-export default new Authenticated();
+
+export default new Authentication();

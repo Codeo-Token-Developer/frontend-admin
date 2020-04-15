@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useContext} from "react";
 import {
   CardDashboardComponent,
   TableDashboardNewUserJustLoginComponent,
@@ -7,7 +7,12 @@ import {
 
 //import { Route, useRouteMatch } from "react-router-dom";
 
+import {userContext} from "../Context";
+
 function Dashboard() {
+
+  let dashboard=useContext(userContext);
+
   return (
     <>
       <div className="row">
@@ -25,7 +30,7 @@ function Dashboard() {
           </div>
         </div>
       </div>
-      <CardDashboard />
+      <CardDashboard totalUsers={(dashboard.Dashboard===undefined||dashboard.Dashboard===null)?"0":dashboard.Dashboard.totalUsers} />
     </>
   );
 }
@@ -37,7 +42,7 @@ const CardDashboard = props => {
         <div className="col-lg-3">
           <CardDashboardComponent
             titleData="Total User" /*====== Text Data For Card ======*/
-            totalCount="122.222" /*====== Total Count Data ======*/
+            totalCount={props.totalUsers} /*====== Total Count Data ======*/
             upDownClass="mdi mdi-trending-up" /*====== Set Icon Up or Down Total Data ======*/
             upDownText="text-success" /*====== Set Color For Icon Up or Down (text-success = Green Color) / (text-danger = Red Color) ======*/
             percentData="5.5%" /*====== Total Percent Up or Down Today ======*/

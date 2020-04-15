@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 
 // Router
 import {
-  BrowserRouter as Router,
   Route,
   Switch,
   useHistory,
-  Redirect
+  Redirect,
+  withRouter
 } from "react-router-dom";
 
 //Pages
@@ -14,61 +14,31 @@ import Login from "./pages/Login";
 import MainPage from "./pages/MainPage";
 
 //Auth
-import auth from "./Auth";
+import Auth from "./Auth";
 
 function App() {
   let history = useHistory();
 
   useEffect(() => {
-    if (localStorage.getItem("codeoToken")) {
-      auth.login(() => {
+    if (localStorage.getItem("adminToken")) {
+      Auth.onLogin(() => {
         history.push("/dashboard");
       });
     } else {
-      auth.logout(() => {
-        history.push("/");
-      });
+      Auth.onLogout(() => history.push("/"));
     }
   }, [history]);
 
   return (
-    <>
-      <Router>
         <Switch>
-          <Route exact path="/" component={Login} />
-          <ProtectedRoute path="/dashboard" component={MainPage} />
-          <ProtectedRoute path="/userManagement" component={MainPage} />
-          <ProtectedRoute path="/cmsUpdate" component={MainPage} />
-          <ProtectedRoute path="/ledger" component={MainPage} />
-          <ProtectedRoute path="/kycApproval" component={MainPage} />
+          <Route exact path="/">
+            <Login />
+          </Route>
+          {
+            (Auth.isLogin)?<MainPage />:<Redirect to="/" />
+          }
         </Switch>
-      </Router>
-    </>
   );
 }
 
-function ProtectedRoute({ component: Component, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={props => {
-        if (auth.isAuthenticated()) {
-          return <Component {...props} />;
-        } else {
-          return (
-            <Redirect
-              to={{
-                pathname: "/",
-                state: {
-                  from: props.location
-                }
-              }}
-            />
-          );
-        }
-      }}
-    />
-  );
-}
-
-export default App;
+export default withRouter(App);
