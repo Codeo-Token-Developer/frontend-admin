@@ -1,7 +1,7 @@
 import { createContext } from "react";
 
-const url = "http://35.240.211.254";
+const url = "https://codeo-admin.herokuapp.com";
 
 export const urlContext = createContext(url);
 
-export const userContext = createContext({});
+export const adminContext = createContext({});

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Link, useRouteMatch, useHistory } from 'react-router-dom'
-import { userContext } from '../../../Context'
+import { adminContext } from '../../../Context'
 import Swal from 'sweetalert2'
 
 //auth;
@@ -63,7 +63,7 @@ function AuthOne(props){
 function AuthTwo(props){
     let history = useHistory();
 
-    let user = useContext(userContext);
+    let user = useContext(adminContext);
 
     let { url } = useRouteMatch();
 

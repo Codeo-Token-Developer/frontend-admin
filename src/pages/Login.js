@@ -27,7 +27,7 @@ function Login() {
     e.preventDefault();
     Swal.showLoading();
     axios({
-      url: `${baseUrl}/users/login`,
+      url: `${baseUrl}/admins/login`,
       method: "POST",
       data: {
         email: loginData.email,
