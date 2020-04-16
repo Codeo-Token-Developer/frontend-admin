@@ -1,8 +1,10 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import Axios from 'axios'
 import { urlContext } from '../Context'
 
 function CMSUpdate() {
+    const baseURL = useContext(urlContext);
+
     return (
         <>
             <div className="row">
@@ -18,13 +20,38 @@ function CMSUpdate() {
                     </div>
                 </div>
             </div>
-            <CardCMSUpdate />
-            <DropdownCMSUpdate />
+            <CardCMSUpdate baseURL={baseURL}/>
+            <DropdownCMSUpdate baseURL={baseURL}/>
         </>
     )
 }
 
-const CardCMSUpdate = () => {
+const CardCMSUpdate = (props) => {
+    const stateCMS = {
+        title: "Tittle is Empty",
+        category: "Category is Empty",
+        description: "Description is Empty"
+    }
+    const [dataCMS, setDataCMS] = useState([stateCMS])
+
+    useEffect(()=>{
+        Axios({
+          url: `${props.baseURL}/cms/`,
+          method: "GET",
+          headers: {
+            admintoken: localStorage.getItem("adminToken")
+          }
+        })
+        .then(({data}) => {
+            setDataCMS(data.CMS);
+        })
+        .catch(err => {
+            setDataCMS(stateCMS)
+            console.log(err);
+        });
+    },[dataCMS]);
+    
+
     return(
         <div className="row">
             <div className="col-12">
@@ -43,51 +70,19 @@ const CardCMSUpdate = () => {
                         </tr>{/*end tr*/}
                     </thead>
                     <tbody>
-                        <tr>
-                        <td>
-                            Grand Opening Codeo Token
-                        </td>
-                        <td>
-                            Homepage
-                        </td>
-                        <td>
-                            Pembukaan Codeo Token Admin
-                        </td>
-                        <td>
-                            <a href="#a" className="mr-2"><i className="fas fa-edit text-info font-16"></i></a>
-                            <a href="#b"><i className="fas fa-trash-alt text-danger font-16"></i></a>
-                        </td>
-                        </tr>{/*end tr*/}
-                        <tr>
-                        <td>
-                            Grand Opening Codeo Token
-                        </td>
-                        <td>
-                            Homepage
-                        </td>
-                        <td>
-                            Pembukaan Codeo Token Admin
-                        </td>
-                        <td>
-                            <a href="#a" className="mr-2"><i className="fas fa-edit text-info font-16"></i></a>
-                            <a href="#b"><i className="fas fa-trash-alt text-danger font-16"></i></a>
-                        </td>
-                        </tr>{/*end tr*/}
-                        <tr>
-                        <td>
-                            Grand Opening Codeo Token
-                        </td>
-                        <td>
-                            Homepage
-                        </td>
-                        <td>
-                            Pembukaan Codeo Token Admin
-                        </td>
-                        <td>
-                            <a href="#a" className="mr-2"><i className="fas fa-edit text-info font-16"></i></a>
-                            <a href="#b"><i className="fas fa-trash-alt text-danger font-16"></i></a>
-                        </td>
-                        </tr>{/*end tr*/}
+                        {(dataCMS===undefined||dataCMS===null)?[]:dataCMS.map((item)=>{
+                            return(
+                                <tr>
+                                <td>{item.title}</td>
+                                <td>{item.category}</td>
+                                <td>{item.description}</td>
+                                <td>
+                                    <a href={"#edit#"} className="mr-2"><i className="fas fa-edit text-info font-16"></i></a>
+                                    <a href={"#delete#"}><i className="fas fa-trash-alt text-danger font-16"></i></a>
+                                </td>
+                                </tr>
+                            );
+                        })}
                     </tbody>
                     </table>
                 </div>
@@ -98,8 +93,7 @@ const CardCMSUpdate = () => {
     )
 }
 
-const DropdownCMSUpdate = () => {
-    const baseURL = useContext(urlContext);
+const DropdownCMSUpdate = (props) => {
     const stateCMS = {
         title: "",
         category: "",
@@ -118,10 +112,10 @@ const DropdownCMSUpdate = () => {
     const onSubmitCMS = (e) => {
         e.preventDefault();
         Axios({
-            url: `${baseURL}/cms/`,
+            url: `${props.baseURL}/cms/`,
             method: "POST",
             headers: {
-                admintoken: localStorage.getItem("codeoToken")
+                admintoken: localStorage.getItem("adminToken")
             },
             data: {
                 title: dataCMS.title,
@@ -129,8 +123,8 @@ const DropdownCMSUpdate = () => {
                 description: dataCMS.description
             }
         })
-        .then(err => {
-            alert(JSON.stringify(stateCMS))
+        .then(res => {
+            alert("test")
         }).catch(err => {
             alert(JSON.stringify(err))
         });    
@@ -150,13 +144,13 @@ const DropdownCMSUpdate = () => {
                       <div className="col-md-6">
                         <div className="form-group">
                           <label htmlFor="Title">Title</label>
-                          <input type="text" className="form-control" id="Title" onChange={handleChangeCMS} required />
+                          <input type="text" className="form-control" name="title" id="Title" onChange={handleChangeCMS} required />
                         </div>
                       </div>
                       <div className="col-md-6">
                         <div className="form-group">
                           <label htmlFor="status-select" className="mr-2">Category</label>
-                          <select className="custom-select" id="status-select" onChange={handleChangeCMS}>
+                          <select className="custom-select" name="category" id="status-select" onChange={handleChangeCMS}>
                             <option selected>Choose Category</option>
                             <option value="Wallet">Wallet</option>
                             <option value="HomePage">Homepage</option>
@@ -168,7 +162,7 @@ const DropdownCMSUpdate = () => {
                       <div className="col-md-12">
                         <div className="form-group">
                           <label htmlFor="Description">Description</label>
-                          <textarea className="form-control" id="Description" defaultValue={""} onChange={handleChangeCMS}/>
+                          <textarea className="form-control" name="description" id="Description" defaultValue={""} onChange={handleChangeCMS}/>
                         </div>
                       </div>
                     </div> 

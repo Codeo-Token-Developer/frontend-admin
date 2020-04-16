@@ -1,11 +1,10 @@
-import React from 'react'
-//import { Link, useRouteMatch,useHistory } from 'react-router-dom'
-//import { userContext } from '../../../Context'
+import React, { useContext } from 'react'
+import { Link, useRouteMatch, useHistory } from 'react-router-dom'
+import { adminContext } from '../../../Context'
 import Swal from 'sweetalert2'
 
 //auth;
 import Auth from '../../../Auth';
-import { useHistory } from "react-router-dom";
 
 export const HeaderRight = () => {
     return(
@@ -64,7 +63,7 @@ function AuthOne(props){
 function AuthTwo(props){
     let history = useHistory();
 
-    //let user = useContext(userContext);
+    let user = useContext(adminContext);
 
     //let { url } = useRouteMatch();
 
