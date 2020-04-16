@@ -4,4 +4,4 @@ const url = "https://codeo-admin.herokuapp.com";
 
 export const urlContext = createContext(url);
 
-export const userContext = createContext({});
+export const adminContext = createContext({});

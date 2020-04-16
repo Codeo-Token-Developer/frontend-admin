@@ -9,7 +9,7 @@ import {
 //import { Route, useRouteMatch } from "react-router-dom";
 
 import axios from "axios";
-import {urlContext,userContext} from "../Context";
+import {urlContext,adminContext} from "../Context";
 
 function Dashboard() {
   const baseUrl=useContext(urlContext);
@@ -102,7 +102,7 @@ function DashboardFunction() {
 }
 
   return (
-      <userContext.Provider value={data}>
+      <adminContext.Provider value={data}>
       <div className="row">
         <div className="col-sm-12">
           <div className="page-title-box">
@@ -126,7 +126,7 @@ function DashboardFunction() {
       totalTransactions={(data===undefined||data===null)?"0":data.totalTransactions}
       totalActiveWallets={(data===undefined||data===null)?"0":data.totalActiveWallets}
        />
-    </userContext.Provider>
+    </adminContext.Provider>
   );
 }
 

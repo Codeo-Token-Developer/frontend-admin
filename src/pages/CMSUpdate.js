@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
+import Axios from 'axios'
+import { urlContext } from '../Context'
 
 function CMSUpdate() {
     return (
@@ -97,6 +99,43 @@ const CardCMSUpdate = () => {
 }
 
 const DropdownCMSUpdate = () => {
+    const baseURL = useContext(urlContext);
+    const stateCMS = {
+        title: "",
+        category: "",
+        description: ""
+    }
+    
+    const [dataCMS, setDataCMS] = useState(stateCMS)
+
+    const handleChangeCMS = (e) => {
+        setDataCMS({
+            ...dataCMS,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const onSubmitCMS = (e) => {
+        e.preventDefault();
+        Axios({
+            url: `${baseURL}/cms/`,
+            method: "POST",
+            headers: {
+                admintoken: localStorage.getItem("codeoToken")
+            },
+            data: {
+                title: dataCMS.title,
+                category: dataCMS.category,
+                description: dataCMS.description
+            }
+        })
+        .then(err => {
+            alert(JSON.stringify(stateCMS))
+        }).catch(err => {
+            alert(JSON.stringify(err))
+        });    
+    }
+
     return(
         <div className="modal fade bs-example-modal-lg" tabIndex={-1} role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div className="modal-dialog modal-lg">
@@ -106,21 +145,21 @@ const DropdownCMSUpdate = () => {
                   <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div className="modal-body">
-                  <form>
+                  <form method="post" onSubmit={onSubmitCMS}>
                     <div className="row">
                       <div className="col-md-6">
                         <div className="form-group">
                           <label htmlFor="Title">Title</label>
-                          <input type="text" className="form-control" id="Title" required />
+                          <input type="text" className="form-control" id="Title" onChange={handleChangeCMS} required />
                         </div>
                       </div>
                       <div className="col-md-6">
                         <div className="form-group">
                           <label htmlFor="status-select" className="mr-2">Category</label>
-                          <select className="custom-select" id="status-select">
+                          <select className="custom-select" id="status-select" onChange={handleChangeCMS}>
                             <option selected>Choose Category</option>
-                            <option value={1}>Wallet</option>
-                            <option value={2}>Homepage</option>
+                            <option value="Wallet">Wallet</option>
+                            <option value="HomePage">Homepage</option>
                           </select>
                         </div>
                       </div>
@@ -129,13 +168,13 @@ const DropdownCMSUpdate = () => {
                       <div className="col-md-12">
                         <div className="form-group">
                           <label htmlFor="Description">Description</label>
-                          <textarea className="form-control" id="Description" defaultValue={""} />
+                          <textarea className="form-control" id="Description" defaultValue={""} onChange={handleChangeCMS}/>
                         </div>
                       </div>
-                    </div>
-                    <button type="button" className="btn btn-sm btn-gradient-primary">Save</button>
-                    <button type="button" className="btn btn-sm btn-gradient-danger">Delete</button>
-                  </form>
+                    </div> 
+                    <button type="submit" className="btn btn-sm btn-gradient-primary">Save</button>  
+                    <button type="button" className="btn btn-sm btn-gradient-danger">Delete</button>             
+                  </form>  
                 </div>
               </div>{/* /.modal-content */}
             </div>{/* /.modal-dialog */}
