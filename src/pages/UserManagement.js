@@ -78,6 +78,8 @@ const CardUserManagement = (props) => {
                                 <thead className="thead-light">
                                     <tr>
                                         <th>Name</th>
+                                        <th>Verification</th>
+                                        <th>Registration time</th>
                                         <th>Email</th>
                                         <th>Country</th>
                                         <th>Action</th>
@@ -88,6 +90,8 @@ const CardUserManagement = (props) => {
                                         return (
                                           <tr>
                                             <td>{item.username}</td>
+                                            <td>{(item.verification)?<div className="alert alert-success">Verify</div>:<div className="alert alert-danger">Not Verify</div>}</td>
+                                            <td>{(item.created_at===undefined||item.created_at===null)?"Unknown":new Date(item.created_at).toLocaleDateString()+" "+new Date(item.created_at).toLocaleTimeString()}</td>
                                             <td>{item.email}</td>
                                             <td>{(item.id_country===undefined||item.id_country===null)?"none":item.id_country}</td>
                                             <td>
@@ -113,9 +117,33 @@ const CardUserManagement = (props) => {
 
 const DropdownUserManagement = (props) => {
 
+const [data,setData]=useState({username:"",password:"",fullname:"",email:""});
+
+  const handleChange=(e)=>{
+    setData({...data,[e.target.name]:e.target.value});
+  };
 
     const handleSubmit=(e)=>{
       e.preventDefault();
+
+      axios({
+        url:`${props.baseUrl}/users`,
+        method:"POST",
+        headers:{
+          adminToken:localStorage.getItem("adminToken")
+        },
+        data:{
+          full_name:data.fullname,
+          username:data.username,
+          password:data.password,
+          email:data.email
+        }
+      }).then(({data})=>{
+        alert(JSON.stringify(data))
+      }).catch(err=>{
+        alert(err);
+      });
+
     };
 
     return(
@@ -131,27 +159,28 @@ const DropdownUserManagement = (props) => {
                             <div className="row">
                                 <div className="col-md-6">
                                     <div className="form-group">
-                                        <label htmlFor="Title">Nama</label>
-                                        <input type="text" className="form-control" id="Nama" required />
+                                        <label htmlFor="Title">Username</label>
+                                        <input type="text" className="form-control" name="username" id="Nama" onChange={handleChange} required />
                                     </div>
                                 </div>
                                 <div className="col-md-6">
                                     <div className="form-group">
-                                        <label htmlFor="status-select" className="mr-2">Country</label>
-                                        <select className="custom-select" id="status-select">
-                                            <option value="none" selected>Choose Category</option>
-                                            {
-                                              props.country.map((item)=><option value={item}>{item}</option>)
-                                            }
-                                        </select>
+                                        <label htmlFor="Title">Password </label>
+                                        <input type="password" className="form-control" name="password" onChange={handleChange} id="Nama" required />
                                     </div>
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="col-md-12">
+                              <div className="col-md-6">
+                                <div className="form-group">
+                                      <label htmlFor="Title">Full Name</label>
+                                      <input type="text" className="form-control" name="fullname" id="Nama" onChange={handleChange} required />
+                                </div>
+                              </div>
+                                <div className="col-md-6">
                                     <div className="form-group">
                                         <label htmlFor="Email">Email</label>
-                                        <input type="email" className="form-control" id="Email" required />
+                                        <input type="email" className="form-control" name="email" id="Email" onChange={handleChange} required />
                                     </div>
                                 </div>
                             </div>
