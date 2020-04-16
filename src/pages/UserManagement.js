@@ -31,7 +31,7 @@ const CardUserManagement = (props) => {
 
   const [status,setStatus]=useState(false);
   let [data,setData]=useState(
-    [{username:"Username is empty",email:"Email is empty",id_country:"Country is empty"}]
+    [{username:"Username is empty",verification:"Not Verify",created_at:"Unknown",email:"Email is empty",id_country:"Country is empty"}]
   );
 
 
@@ -93,7 +93,7 @@ const CardUserManagement = (props) => {
                                             <td>{(item.verification)?<div className="alert alert-success">Verify</div>:<div className="alert alert-danger">Not Verify</div>}</td>
                                             <td>{(item.created_at===undefined||item.created_at===null)?"Unknown":new Date(item.created_at).toLocaleDateString()+" "+new Date(item.created_at).toLocaleTimeString()}</td>
                                             <td>{item.email}</td>
-                                            <td>{(item.id_country===undefined||item.id_country===null)?"none":item.id_country}</td>
+                                            <td>{(item.id_country===undefined||item.id_country===null)?"Unknown Country":item.id_country}</td>
                                             <td>
                                               <a href={"#edit#"+item.username} className="mr-2"><i className="fas fa-edit text-info font-16"></i></a>
                                               <a href={"#delete#"+item.username}><i className="fas fa-trash-alt text-danger font-16"></i></a>
