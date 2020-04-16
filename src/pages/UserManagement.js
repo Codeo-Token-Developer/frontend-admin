@@ -1,6 +1,11 @@
-import React from 'react'
+import React,{useState,useEffect,useContext} from "react";
+import axios from "axios";
+import {urlContext} from "../Context";
 
 function UserManagement() {
+  let country=["United Arab Emirates","Argentina","Austria","Australia","Belgium","Brazil","Canada","Switzerland","China","Germany","Spain","France","United Kingdom","Indonesia","India","Italy","Japan","South Korea","Mexico","Nigeria","Netherlands","Norway","Poland","Russia","Saudi Arabia","Sweden","Thailand","Turkey","United States","Venezuela"];
+  let baseUrl=useContext(urlContext);
+
     return (
         <>
             <div className="row">
@@ -16,13 +21,51 @@ function UserManagement() {
                     </div>
                 </div>
             </div>
-            <CardUserManagement />
-            <DropdownUserManagement />
+            <CardUserManagement baseUrl={baseUrl} />
+            <DropdownUserManagement baseUrl={baseUrl} country={country||[]} />
         </>
     )
 }
 
-const CardUserManagement = () => {
+const CardUserManagement = (props) => {
+
+  const [status,setStatus]=useState(false);
+  let [data,setData]=useState(
+    [{username:"Username is empty",email:"Email is empty",id_country:"Country is empty"}]
+  );
+
+
+  function Main(data) {
+    useEffect(()=>{
+      if(!status){
+        data.getUser();
+      }
+    },[data]);
+  }
+
+  Main({
+    getUser:getUsers
+  });
+
+
+  function getUsers() {
+
+    axios({
+      url:`${props.baseUrl}/users`,
+      method:"GET",
+      headers:{
+        adminToken:localStorage.getItem("adminToken")
+      }
+    }).then(({data})=>{
+      setData(data.users);
+      setStatus(true);
+    }).catch(err=>{
+      setData({username:"Username is empty",email:"Email is empty",id_country:"Country is empty"})
+      console.log(err);
+    });
+
+  }
+
     return(
         <div className="row">
             <div className="col-12">
@@ -39,6 +82,22 @@ const CardUserManagement = () => {
                                         <th>Country</th>
                                         <th>Action</th>
                                     </tr>{/*end tr*/}
+                                    {
+                                      (data===undefined||data===null)?[]:data.map((item)=>{
+
+                                        return (
+                                          <tr>
+                                            <td>{item.username}</td>
+                                            <td>{item.email}</td>
+                                            <td>{(item.id_country===undefined||item.id_country===null)?"none":item.id_country}</td>
+                                            <td>
+                                              <a href={"#edit#"+item.username} className="mr-2"><i className="fas fa-edit text-info font-16"></i></a>
+                                              <a href={"#delete#"+item.username}><i className="fas fa-trash-alt text-danger font-16"></i></a>
+                                            </td>
+                                          </tr>
+                                        );
+                                      })
+                                    }
                                 </thead>
                                 <tbody>
 
@@ -52,7 +111,13 @@ const CardUserManagement = () => {
     )
 }
 
-const DropdownUserManagement = () => {
+const DropdownUserManagement = (props) => {
+
+
+    const handleSubmit=(e)=>{
+      e.preventDefault();
+    };
+
     return(
         <div className="modal fade bs-example-modal-lg" tabIndex={-1} role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div className="modal-dialog modal-lg">
@@ -62,7 +127,7 @@ const DropdownUserManagement = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
                     <div className="modal-body">
-                        <form>
+                        <form onSubmit={handleSubmit}>
                             <div className="row">
                                 <div className="col-md-6">
                                     <div className="form-group">
@@ -74,9 +139,10 @@ const DropdownUserManagement = () => {
                                     <div className="form-group">
                                         <label htmlFor="status-select" className="mr-2">Country</label>
                                         <select className="custom-select" id="status-select">
-                                            <option selected>Choose Category</option>
-                                            <option value={1}>Indonesia</option>
-                                            <option value={2}>Other Planet</option>
+                                            <option value="none" selected>Choose Category</option>
+                                            {
+                                              props.country.map((item)=><option value={item}>{item}</option>)
+                                            }
                                         </select>
                                     </div>
                                 </div>
@@ -89,7 +155,7 @@ const DropdownUserManagement = () => {
                                     </div>
                                 </div>
                             </div>
-                            <button type="button" className="btn btn-sm btn-gradient-primary">Save</button>
+                            <button type="submit" className="btn btn-sm btn-gradient-primary">Save</button>
                             <button type="button" className="btn btn-sm btn-gradient-danger">Delete</button>
                         </form>
                     </div>

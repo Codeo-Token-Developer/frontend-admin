@@ -22,8 +22,8 @@ function AuthOne(props){
             </a>
             <div className="dropdown-menu dropdown-menu-right dropdown-lg">
                 {/* item*/}
-                <h6 className="dropdown-item-text">
-            Notifications (18)
+            <h6 className="dropdown-item-text">
+                Notifications (18)
             </h6>
                 <div className="slimscroll notification-list">
                     {/* item*/}
@@ -83,7 +83,7 @@ function AuthTwo(props){
 
             <button className="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
                 <img src="../assets/images/users/user-4.jpg" alt="profile-user" className="rounded-circle" />
-                <span className="ml-1 nav-user-name hidden-sm" style={{color: 'white'}}> Ivan <i className="mdi mdi-chevron-down" /> </span>
+                <span className="ml-1 nav-user-name hidden-sm" style={{color: 'black'}}> Ivan <i className="mdi mdi-chevron-down" /> </span>
             </button>
             <div className="dropdown-menu dropdown-menu-right">
                 {/* <Link to={`${url}/profile`}> */}

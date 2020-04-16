@@ -1,4 +1,4 @@
-import React,{useContext} from "react";
+import React,{useContext,useEffect,useState} from "react";
 import {
   CardDashboardComponent,
   TableDashboardNewUserJustLoginComponent,
@@ -7,14 +7,92 @@ import {
 
 //import { Route, useRouteMatch } from "react-router-dom";
 
-import {userContext} from "../Context";
+import axios from "axios";
+import {urlContext,userContext} from "../Context";
 
 function Dashboard() {
+  const baseUrl=useContext(urlContext);
 
-  let dashboard=useContext(userContext);
+  const [status,setStatus]=useState(false);
+  const [data,setData]=useState([{totalUsers:0,totalActiveUsers:0,totalGenerateWallets:0,totalVerifiedUsers:0,totalTransactions:0,totalActiveWallets:0}]);
+
+function Main(data){
+  useEffect(()=>{
+    if(!status){
+      data.Dashboard();
+      //Your get getdata
+      //all get data
+    }
+  },[data]);
+}
+
+Main({
+  Dashboard:DashboardFunction,
+});
+
+
+function DashboardFunction() {
+  let totalUsers=axios({
+    url:`${baseUrl}/dashboard/totalUser`,
+    method:'GET',
+    headers:{
+      adminToken:localStorage.getItem("adminToken")
+    }
+  });
+  let totalActiveUser=axios({
+    url:`${baseUrl}/dashboard/totalActiveUser`,
+    method:'GET',
+    headers:{
+      adminToken:localStorage.getItem("adminToken")
+    }
+  });
+
+  let totalGenerateWallet=axios({
+    url:`${baseUrl}/dashboard/totalGenerateWallet`,
+    method:'GET',
+    headers:{
+      adminToken:localStorage.getItem("adminToken")
+    }
+  });
+
+  let totalVerifiedUser=axios({
+    url:`${baseUrl}/dashboard/totalVerifiedUser`,
+    method:'GET',
+    headers:{
+      adminToken:localStorage.getItem("adminToken")
+    }
+  });
+
+  let totalTransaction=axios({
+    url:`${baseUrl}/dashboard/totalTransaction`,
+    method:'GET',
+    headers:{
+      adminToken:localStorage.getItem("adminToken")
+    }
+  });
+
+  let totalActiveWallet=axios({
+    url:`${baseUrl}/dashboard/totalActiveWallet`,
+    method:'GET',
+    headers:{
+      adminToken:localStorage.getItem("adminToken")
+    }
+  });
+
+  axios.all([totalUsers,totalActiveUser,totalGenerateWallet,totalVerifiedUser,totalTransaction,totalActiveWallet]).then(axios.spread((...res)=>{
+    setData({
+        totalUsers:res[0].data.total,totalActiveUsers:res[1].data.total,totalGenerateWallets:res[2].data.total,
+        totalVerifiedUsers:res[3].data.total,totalTransactions:res[4].data.total,totalActiveWallets:res[5].data.total
+    });
+    setStatus(true);
+  })).catch(err=>{
+    console.log(err);
+  });
+
+}
 
   return (
-    <>
+      <userContext.Provider value={data}>
       <div className="row">
         <div className="col-sm-12">
           <div className="page-title-box">
@@ -31,14 +109,14 @@ function Dashboard() {
         </div>
       </div>
       <CardDashboard
-      totalUsers={(dashboard.Dashboard===undefined||dashboard.Dashboard===null)?"0":dashboard.Dashboard.totalUsers}
-      totalActiveUsers={(dashboard.Dashboard===undefined||dashboard.Dashboard===null)?"0":dashboard.Dashboard.totalActiveUsers}
-      totalGenerateWallets={(dashboard.Dashboard===undefined||dashboard.Dashboard===null)?"0":dashboard.Dashboard.totalGenerateWallets}
-      totalVerifiedUsers={(dashboard.Dashboard===undefined||dashboard.Dashboard===null)?"0":dashboard.Dashboard.totalVerifiedUsers}
-      totalTransactions={(dashboard.Dashboard===undefined||dashboard.Dashboard===null)?"0":dashboard.Dashboard.totalTransactions}
-      totalActiveWallets={(dashboard.Dashboard===undefined||dashboard.Dashboard===null)?"0":dashboard.Dashboard.totalActiveWallets}
+      totalUsers={(data===undefined||data===null)?"0":data.totalUsers}
+      totalActiveUsers={(data===undefined||data===null)?"0":data.totalActiveUsers}
+      totalGenerateWallets={(data===undefined||data===null)?"0":data.totalGenerateWallets}
+      totalVerifiedUsers={(data===undefined||data===null)?"0":data.totalVerifiedUsers}
+      totalTransactions={(data===undefined||data===null)?"0":data.totalTransactions}
+      totalActiveWallets={(data===undefined||data===null)?"0":data.totalActiveWallets}
        />
-    </>
+    </userContext.Provider>
   );
 }
 
