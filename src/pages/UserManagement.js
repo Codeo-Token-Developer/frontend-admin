@@ -31,7 +31,7 @@ const CardUserManagement = (props) => {
 
   const [status,setStatus]=useState(false);
   let [data,setData]=useState(
-    [{username:"Username is empty",verification:"Not Verify",created_at:"Unknown",email:"Email is empty",id_country:"Country is empty"}]
+    [{username:"Username is empty",verification:undefined,created_at:undefined,email:"Email is empty",id_country:"Country is empty"}]
   );
 
 
