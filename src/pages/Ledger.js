@@ -9,7 +9,7 @@ function Ledger() {
                     <div className="page-title-box">
                         <div className="float-right">
                             <ol className="breadcrumb">
-                                <li className="breadcrumb-item"><a href="javascript:void(0);">Admin</a></li>
+                                <li className="breadcrumb-item"><a href="#admin">Admin</a></li>
                                 <li className="breadcrumb-item active">Ledger</li>
                             </ol>
                         </div>

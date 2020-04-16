@@ -1,10 +1,11 @@
-import React, { useContext } from 'react'
-import { Link, useRouteMatch, useHistory } from 'react-router-dom'
-import { adminContext } from '../../../Context'
+import React from 'react'
+//import { Link, useRouteMatch,useHistory } from 'react-router-dom'
+//import { userContext } from '../../../Context'
 import Swal from 'sweetalert2'
 
 //auth;
 import Auth from '../../../Auth';
+import { useHistory } from "react-router-dom";
 
 export const HeaderRight = () => {
     return(
@@ -15,46 +16,46 @@ export const HeaderRight = () => {
 function AuthOne(props){
     return(
         <li className="dropdown notification-list">
-            <a className="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+            <a className="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#a1" role="button" aria-haspopup="false" aria-expanded="false">
                 <i className="dripicons-bell noti-icon" />
                 <span className="badge badge-danger badge-pill noti-icon-badge">2</span>
             </a>
             <div className="dropdown-menu dropdown-menu-right dropdown-lg">
                 {/* item*/}
-                <h6 className="dropdown-item-text">
-            Notifications (18)
+            <h6 className="dropdown-item-text">
+                Notifications (18)
             </h6>
                 <div className="slimscroll notification-list">
                     {/* item*/}
-                    <a href="javascript:void(0);" className="dropdown-item notify-item active">
+                    <a href="#a" className="dropdown-item notify-item active">
                         <div className="notify-icon bg-success"><i className="mdi mdi-cart-outline" /></div>
                         <p className="notify-details">Your order is placed<small className="text-muted">Dummy text of the printing and typesetting industry.</small></p>
                     </a>
                     {/* item*/}
-                    <a href="javascript:void(0);" className="dropdown-item notify-item">
+                    <a href="#b" className="dropdown-item notify-item">
                         <div className="notify-icon bg-warning"><i className="mdi mdi-message" /></div>
                         <p className="notify-details">New Message received<small className="text-muted">You have 87 unread messages</small></p>
                     </a>
                     {/* item*/}
-                    <a href="javascript:void(0);" className="dropdown-item notify-item">
+                    <a href="#C" className="dropdown-item notify-item">
                         <div className="notify-icon bg-info"><i className="mdi mdi-glass-cocktail" /></div>
                         <p className="notify-details">Your item is shipped<small className="text-muted">It is a long established fact that a reader will</small></p>
                     </a>
                     {/* item*/}
-                    <a href="javascript:void(0);" className="dropdown-item notify-item">
+                    <a href="#Yourorderisplaced" className="dropdown-item notify-item">
                         <div className="notify-icon bg-primary"><i className="mdi mdi-cart-outline" /></div>
                         <p className="notify-details">Your order is placed<small className="text-muted">Dummy text of the printing and typesetting industry.</small></p>
                     </a>
                     {/* item*/}
-                    <a href="javascript:void(0);" className="dropdown-item notify-item">
+                    <a href="#NewMessageReceived" className="dropdown-item notify-item">
                         <div className="notify-icon bg-danger"><i className="mdi mdi-message" /></div>
                         <p className="notify-details">New Message received<small className="text-muted">You have 87 unread messages</small></p>
                     </a>
                 </div>
                 {/* All*/}
-                <a href="javascript:void(0);" className="dropdown-item text-center text-primary">
-            View all <i className="fi-arrow-right" />
-            </a>
+                <a href="#ViewAll" className="dropdown-item text-center text-primary">
+                    View all <i className="fi-arrow-right" />
+                </a>
             </div>
         </li>
     )
@@ -63,24 +64,26 @@ function AuthOne(props){
 function AuthTwo(props){
     let history = useHistory();
 
-    let user = useContext(adminContext);
+    //let user = useContext(userContext);
 
-    let { url } = useRouteMatch();
+    //let { url } = useRouteMatch();
 
     const logout = () => {
         Swal.showLoading();
-        Auth.logout(() => {
-            localStorage.removeItem('codeoToken')
-            history.push('/');
-        })
+        Auth.onLogout(() =>history.push("/"));
         Swal.close();
     };
 
     return(
         <li className="dropdown">
-            <button style={{backgroundColor: '#1c233f', border: 'none'}} className="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" role="button" aria-haspopup="false" aria-expanded="false">
+          {/*
+            <button style={{backgroundColor: "#1c233f", border: "none"}} className="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" role="button" aria-haspopup="false" aria-expanded="false">
+            */
+          }
+
+            <button className="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
                 <img src="../assets/images/users/user-4.jpg" alt="profile-user" className="rounded-circle" />
-                <span className="ml-1 nav-user-name hidden-sm" style={{color: 'white'}}> Ivan <i className="mdi mdi-chevron-down" /> </span>
+                <span className="ml-1 nav-user-name hidden-sm" style={{color: 'black'}}> Ivan <i className="mdi mdi-chevron-down" /> </span>
             </button>
             <div className="dropdown-menu dropdown-menu-right">
                 {/* <Link to={`${url}/profile`}> */}
@@ -99,10 +102,10 @@ function HeaderRightUnstyled(props){
     return(
         <nav className="navbar-custom">
             <ul className="list-unstyled topbar-nav float-right mb-0">
-                
+
                 <AuthOne />
                 <AuthTwo />
-                
+
             </ul>
             {/*end topbar-nav*/}
             <ul className="list-unstyled topbar-nav mb-0">

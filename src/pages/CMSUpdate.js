@@ -10,7 +10,7 @@ function CMSUpdate() {
                     <div className="page-title-box">
                         <div className="float-right">
                             <ol className="breadcrumb">
-                                <li className="breadcrumb-item"><a href="javascript:void(0);">Admin</a></li>
+                                <li className="breadcrumb-item"><a href="#admin">Admin</a></li>
                                 <li className="breadcrumb-item active">CMS Update</li>
                             </ol>
                         </div>
@@ -31,7 +31,7 @@ const CardCMSUpdate = () => {
             <div className="card">
                 <div className="card-body">
                 <button type="button" className="btn btn-gradient-primary waves-effect waves-light float-right mb-3" data-toggle="modal" data-animation="bounce" data-target=".bs-example-modal-lg">+ Add News</button>
-                <h4 className="header-title mt-0">CMS Update</h4> 
+                <h4 className="header-title mt-0">CMS Update</h4>
                 <div className="table-responsive dash-social">
                     <table id="datatable" className="table">
                     <thead className="thead-light">
@@ -53,9 +53,9 @@ const CardCMSUpdate = () => {
                         <td>
                             Pembukaan Codeo Token Admin
                         </td>
-                        <td>                                                       
-                            <a href="#" className="mr-2"><i className="fas fa-edit text-info font-16" /></a>
-                            <a href="#"><i className="fas fa-trash-alt text-danger font-16" /></a>
+                        <td>
+                            <a href="#a" className="mr-2"><i className="fas fa-edit text-info font-16"></i></a>
+                            <a href="#b"><i className="fas fa-trash-alt text-danger font-16"></i></a>
                         </td>
                         </tr>{/*end tr*/}
                         <tr>
@@ -68,9 +68,9 @@ const CardCMSUpdate = () => {
                         <td>
                             Pembukaan Codeo Token Admin
                         </td>
-                        <td>                                                       
-                            <a href="#" className="mr-2"><i className="fas fa-edit text-info font-16" /></a>
-                            <a href="#"><i className="fas fa-trash-alt text-danger font-16" /></a>
+                        <td>
+                            <a href="#a" className="mr-2"><i className="fas fa-edit text-info font-16"></i></a>
+                            <a href="#b"><i className="fas fa-trash-alt text-danger font-16"></i></a>
                         </td>
                         </tr>{/*end tr*/}
                         <tr>
@@ -83,17 +83,17 @@ const CardCMSUpdate = () => {
                         <td>
                             Pembukaan Codeo Token Admin
                         </td>
-                        <td>                                                       
-                            <a href="#" className="mr-2"><i className="fas fa-edit text-info font-16" /></a>
-                            <a href="#"><i className="fas fa-trash-alt text-danger font-16" /></a>
+                        <td>
+                            <a href="#a" className="mr-2"><i className="fas fa-edit text-info font-16"></i></a>
+                            <a href="#b"><i className="fas fa-trash-alt text-danger font-16"></i></a>
                         </td>
                         </tr>{/*end tr*/}
                     </tbody>
-                    </table>                    
-                </div>                                         
-                </div>{/*end card-body*/} 
-            </div>{/*end card*/} 
-            </div> {/*end col*/}                               
+                    </table>
+                </div>
+                </div>{/*end card-body*/}
+            </div>{/*end card*/}
+            </div> {/*end col*/}
         </div>
     )
 }
@@ -178,7 +178,7 @@ const DropdownCMSUpdate = () => {
                 </div>
               </div>{/* /.modal-content */}
             </div>{/* /.modal-dialog */}
-        </div> 
+        </div>
     )
 }
 

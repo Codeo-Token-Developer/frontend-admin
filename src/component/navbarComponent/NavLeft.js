@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useRouteMatch } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 function NavLeft() {
     return (
@@ -8,7 +8,7 @@ function NavLeft() {
             <MetricaAnalytic />
 
             <NavMetricaAnalytic />
-        
+
         </div>
     )
 }
@@ -35,7 +35,8 @@ const MetricaAnalytic = () => {
 }
 
 const NavMetricaAnalytic = () => {
-    let {path} = useRouteMatch();
+    //let {path} = useRouteMatch();
+
     return(
         <div className="main-menu-inner">
             <div className="menu-body slimscroll">

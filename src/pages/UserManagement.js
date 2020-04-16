@@ -1,6 +1,11 @@
-import React from 'react'
+import React,{useState,useEffect,useContext} from "react";
+import axios from "axios";
+import {urlContext} from "../Context";
 
 function UserManagement() {
+  let country=["United Arab Emirates","Argentina","Austria","Australia","Belgium","Brazil","Canada","Switzerland","China","Germany","Spain","France","United Kingdom","Indonesia","India","Italy","Japan","South Korea","Mexico","Nigeria","Netherlands","Norway","Poland","Russia","Saudi Arabia","Sweden","Thailand","Turkey","United States","Venezuela"];
+  let baseUrl=useContext(urlContext);
+
     return (
         <>
             <div className="row">
@@ -8,7 +13,7 @@ function UserManagement() {
                     <div className="page-title-box">
                         <div className="float-right">
                             <ol className="breadcrumb">
-                                <li className="breadcrumb-item"><a href="javascript:void(0);">Admin</a></li>
+                                <li className="breadcrumb-item"><a href="#a">Admin</a></li>
                                 <li className="breadcrumb-item active">User Management</li>
                             </ol>
                         </div>
@@ -16,13 +21,51 @@ function UserManagement() {
                     </div>
                 </div>
             </div>
-            <CardUserManagement />
-            <DropdownUserManagement />
-        </> 
+            <CardUserManagement baseUrl={baseUrl} />
+            <DropdownUserManagement baseUrl={baseUrl} country={country||[]} />
+        </>
     )
 }
 
-const CardUserManagement = () => {
+const CardUserManagement = (props) => {
+
+  const [status,setStatus]=useState(false);
+  let [data,setData]=useState(
+    [{username:"Username is empty",verification:"Not Verify",created_at:"Unknown",email:"Email is empty",id_country:"Country is empty"}]
+  );
+
+
+  function Main(data) {
+    useEffect(()=>{
+      if(!status){
+        data.getUser();
+      }
+    },[data]);
+  }
+
+  Main({
+    getUser:getUsers
+  });
+
+
+  function getUsers() {
+
+    axios({
+      url:`${props.baseUrl}/users`,
+      method:"GET",
+      headers:{
+        adminToken:localStorage.getItem("adminToken")
+      }
+    }).then(({data})=>{
+      setData(data.users);
+      setStatus(true);
+    }).catch(err=>{
+      setData({username:"Username is empty",email:"Email is empty",id_country:"Country is empty"})
+      console.log(err);
+    });
+
+  }
+
     return(
         <div className="row">
             <div className="col-12">
@@ -35,13 +78,33 @@ const CardUserManagement = () => {
                                 <thead className="thead-light">
                                     <tr>
                                         <th>Name</th>
+                                        <th>Verification</th>
+                                        <th>Registration time</th>
                                         <th>Email</th>
                                         <th>Country</th>
                                         <th>Action</th>
                                     </tr>{/*end tr*/}
+                                    {
+                                      (data===undefined||data===null)?[]:data.map((item)=>{
+
+                                        return (
+                                          <tr>
+                                            <td>{item.username}</td>
+                                            <td>{(item.verification)?<div className="alert alert-success">Verify</div>:<div className="alert alert-danger">Not Verify</div>}</td>
+                                            <td>{(item.created_at===undefined||item.created_at===null)?"Unknown":new Date(item.created_at).toLocaleDateString()+" "+new Date(item.created_at).toLocaleTimeString()}</td>
+                                            <td>{item.email}</td>
+                                            <td>{(item.id_country===undefined||item.id_country===null)?"Unknown Country":item.id_country}</td>
+                                            <td>
+                                              <a href={"#edit#"+item.username} className="mr-2"><i className="fas fa-edit text-info font-16"></i></a>
+                                              <a href={"#delete#"+item.username}><i className="fas fa-trash-alt text-danger font-16"></i></a>
+                                            </td>
+                                          </tr>
+                                        );
+                                      })
+                                    }
                                 </thead>
                                 <tbody>
-                                    
+
                                 </tbody>
                             </table>
                         </div>
@@ -52,7 +115,37 @@ const CardUserManagement = () => {
     )
 }
 
-const DropdownUserManagement = () => {
+const DropdownUserManagement = (props) => {
+
+const [data,setData]=useState({username:"",password:"",fullname:"",email:""});
+
+  const handleChange=(e)=>{
+    setData({...data,[e.target.name]:e.target.value});
+  };
+
+    const handleSubmit=(e)=>{
+      e.preventDefault();
+
+      axios({
+        url:`${props.baseUrl}/users`,
+        method:"POST",
+        headers:{
+          adminToken:localStorage.getItem("adminToken")
+        },
+        data:{
+          full_name:data.fullname,
+          username:data.username,
+          password:data.password,
+          email:data.email
+        }
+      }).then(({data})=>{
+        alert(JSON.stringify(data))
+      }).catch(err=>{
+        alert(err);
+      });
+
+    };
+
     return(
         <div className="modal fade bs-example-modal-lg" tabIndex={-1} role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div className="modal-dialog modal-lg">
@@ -62,34 +155,36 @@ const DropdownUserManagement = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
                     <div className="modal-body">
-                        <form>
+                        <form onSubmit={handleSubmit}>
                             <div className="row">
                                 <div className="col-md-6">
                                     <div className="form-group">
-                                        <label htmlFor="Title">Nama</label>
-                                        <input type="text" className="form-control" id="Nama" required />
+                                        <label htmlFor="Title">Username</label>
+                                        <input type="text" className="form-control" name="username" id="Nama" onChange={handleChange} required />
                                     </div>
                                 </div>
                                 <div className="col-md-6">
                                     <div className="form-group">
-                                        <label htmlFor="status-select" className="mr-2">Country</label>
-                                        <select className="custom-select" id="status-select">
-                                            <option selected>Choose Category</option>
-                                            <option value={1}>Indonesia</option>
-                                            <option value={2}>Other Planet</option>
-                                        </select>
+                                        <label htmlFor="Title">Password </label>
+                                        <input type="password" className="form-control" name="password" onChange={handleChange} id="Nama" required />
                                     </div>
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="col-md-12">
+                              <div className="col-md-6">
+                                <div className="form-group">
+                                      <label htmlFor="Title">Full Name</label>
+                                      <input type="text" className="form-control" name="fullname" id="Nama" onChange={handleChange} required />
+                                </div>
+                              </div>
+                                <div className="col-md-6">
                                     <div className="form-group">
                                         <label htmlFor="Email">Email</label>
-                                        <input type="email" className="form-control" id="Email" required />
+                                        <input type="email" className="form-control" name="email" id="Email" onChange={handleChange} required />
                                     </div>
                                 </div>
                             </div>
-                            <button type="button" className="btn btn-sm btn-gradient-primary">Save</button>
+                            <button type="submit" className="btn btn-sm btn-gradient-primary">Save</button>
                             <button type="button" className="btn btn-sm btn-gradient-danger">Delete</button>
                         </form>
                     </div>

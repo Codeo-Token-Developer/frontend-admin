@@ -2,7 +2,7 @@ import React from "react";
 import classnames from "classnames";
 
 export const CardDashboardComponent = props => {
-  const colorSelection = props.setColor;
+  //const colorSelection = props.setColor;
 
   return (
     <div className="card card-eco">

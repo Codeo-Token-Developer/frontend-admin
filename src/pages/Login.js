@@ -36,8 +36,8 @@ function Login() {
     })
       .then(({ data }) => {
         Swal.close();
-        auth.login(() => {
-          localStorage.setItem("codeoToken", data.token);
+        auth.onLogin(() => {
+          localStorage.setItem("adminToken", data.token);
           history.push("/dashboard");
         });
       })
