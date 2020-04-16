@@ -80,19 +80,10 @@ function DashboardFunction() {
     }
   });
 
-  let usersIsLogin=axios({
-    url:`${baseUrl}/users/isLogin`,
-    method:'GET',
-    headers:{
-      adminToken:localStorage.getItem("adminToken")
-    }
-  });
-
-  axios.all([totalUsers,totalActiveUser,totalGenerateWallet,totalVerifiedUser,totalTransaction,totalActiveWallet,usersIsLogin]).then(axios.spread((...res)=>{
+  axios.all([totalUsers,totalActiveUser,totalGenerateWallet,totalVerifiedUser,totalTransaction,totalActiveWallet]).then(axios.spread((...res)=>{
     setData({
         totalUsers:res[0].data.total,totalActiveUsers:res[1].data.total,totalGenerateWallets:res[2].data.total,
         totalVerifiedUsers:res[3].data.total,totalTransactions:res[4].data.total,totalActiveWallets:res[5].data.total,
-        usersIsLogin:res[6].data.users
     });
     setStatus(true);
   })).catch(err=>{
@@ -248,7 +239,7 @@ const CardDashboard = props => {
   );
 };
 
-const CardTableDashboard = () => {
+const CardTableDashboard = (props) => {
   return (
     <div className="row">
       <TableDashboardNewUserJustLoginComponent />

@@ -47,6 +47,43 @@ const CardUserManagement = (props) => {
     getUser:getUsers
   });
 
+function EditUsers(e) {
+  alert(e)
+
+  //tester saja
+  // axios({
+  //   url:`${props.baseUrl}/users/me/${e}`,
+  //   method:"GET",
+  //   headers:{
+  //     adminToken:localStorage.getItem("adminToken")
+  //   }
+  // }).then(({data})=>{
+  //   alert(JSON.stringify(data))
+  // }).catch(err=>{
+  //   if(err.response===undefined){
+  //     alert(err.message)
+  //   }else{
+  //     alert(err.response.data.message);
+  //   }
+  //   console.log(err);
+  // });
+}
+
+function DeleteUsers(e) {
+  axios({
+    url:`${props.baseUrl}/users/${e}`,
+    method:"DELETE",
+    headers:{
+      adminToken:localStorage.getItem("adminToken")
+    }
+  }).then(({data})=>{
+    alert(JSON.stringify(data))
+  }).catch(err=>{
+    alert(err);
+    console.log(err);
+  });
+}
+
 
   function getUsers() {
 
@@ -95,8 +132,12 @@ const CardUserManagement = (props) => {
                                             <td>{item.email}</td>
                                             <td>{(item.id_country===undefined||item.id_country===null)?"Unknown Country":item.id_country}</td>
                                             <td>
-                                              <a href={"#edit#"+item.username} className="mr-2"><i className="fas fa-edit text-info font-16"></i></a>
-                                              <a href={"#delete#"+item.username}><i className="fas fa-trash-alt text-danger font-16"></i></a>
+                                            {/*
+                                              <button className="mr-2 btn btn-success" value={item._id} onClick={()=>EditUsers(item._id)}><i className="fas fa-edit text-white font-16"></i></button>
+                                              */
+                                            }
+                                              <button className="mr-2 btn btn-success" value={item._id} onClick={()=>EditUsers(item._id)}><i className="fas fa-edit text-white font-16"></i></button>
+                                              <button className="mr-2 btn btn-danger" value={item._id} onClick={()=>DeleteUsers(item._id)}><i className="fas fa-trash-alt text-white font-16"></i></button>
                                             </td>
                                           </tr>
                                         );
