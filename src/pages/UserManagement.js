@@ -37,9 +37,7 @@ const CardUserManagement = (props) => {
 
   function Main(data) {
     useEffect(()=>{
-      if(!status){
         data.getUser();
-      }
     },[data]);
   }
 
@@ -48,25 +46,22 @@ const CardUserManagement = (props) => {
   });
 
 function EditUsers(e) {
-  alert(e)
-
-  //tester saja
-  // axios({
-  //   url:`${props.baseUrl}/users/me/${e}`,
-  //   method:"GET",
-  //   headers:{
-  //     adminToken:localStorage.getItem("adminToken")
-  //   }
-  // }).then(({data})=>{
-  //   alert(JSON.stringify(data))
-  // }).catch(err=>{
-  //   if(err.response===undefined){
-  //     alert(err.message)
-  //   }else{
-  //     alert(err.response.data.message);
-  //   }
-  //   console.log(err);
-  // });
+  axios({
+    url:`${props.baseUrl}/users/me/${e}`,
+    method:"GET",
+    headers:{
+      adminToken:localStorage.getItem("adminToken")
+    }
+  }).then(({data})=>{
+    alert(JSON.stringify(data))
+  }).catch(err=>{
+    if(err.response===undefined){
+      alert(err.message)
+    }else{
+      alert(err.response.data.message);
+    }
+    console.log(err);
+  });
 }
 
 function DeleteUsers(e) {
@@ -79,7 +74,11 @@ function DeleteUsers(e) {
   }).then(({data})=>{
     alert(JSON.stringify(data))
   }).catch(err=>{
-    alert(err);
+    if(err.response===undefined){
+      alert(err.message);
+    }else{
+      alert(err.response.data.message);
+    }
     console.log(err);
   });
 }
@@ -95,7 +94,6 @@ function DeleteUsers(e) {
       }
     }).then(({data})=>{
       setData(data.users);
-      setStatus(true);
     }).catch(err=>{
       setData({username:"Username is empty",email:"Email is empty",id_country:"Country is empty"})
       console.log(err);
