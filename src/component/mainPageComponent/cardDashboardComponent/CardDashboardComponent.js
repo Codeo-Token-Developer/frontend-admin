@@ -1,10 +1,10 @@
-import React,{useState,useEffect,useContext} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import classnames from "classnames";
 
 import axios from "axios";
-import {urlContext} from "../../../Context";
+import { urlContext } from "../../../Context";
 
-export const CardDashboardComponent = props => {
+export const CardDashboardComponent = (props) => {
   //const colorSelection = props.setColor;
 
   return (
@@ -37,35 +37,42 @@ export const CardDashboardComponent = props => {
   );
 };
 
-export const TableDashboardNewUserJustLoginComponent = props => {
-const baseUrl=useContext(urlContext);
-const [data,setData]=useState([{username:"Unknown username",isLogin:false,updatedAt:undefined,id_country:"Unknown"}]);
+export const TableDashboardNewUserJustLoginComponent = (props) => {
+  const baseUrl = useContext(urlContext);
+  const [data, setData] = useState([
+    {
+      username: "Unknown username",
+      isLogin: false,
+      updatedAt: undefined,
+      id_country: "Unknown",
+    },
+  ]);
 
-function Main(data) {
-  useEffect(()=>{
-    data.GetLoginUser();
-  },[data]);
-}
+  function Main(data) {
+    useEffect(() => {
+      data.GetLoginUser();
+    }, [data]);
+  }
 
-Main({
-  GetLoginUser:getusers,
-});
-
-function getusers() {
-
-  axios({
-    url:`${baseUrl}/users/isLogin`,
-    method:"GET",
-    headers:{
-      adminToken:localStorage.getItem("adminToken")
-    }
-  }).then(({data})=>{
-    setData(data.users);
-  }).catch(err=>{
-    console.log(err);
+  Main({
+    GetLoginUser: getusers,
   });
 
-}
+  function getusers() {
+    axios({
+      url: `${baseUrl}/users/isLogin`,
+      method: "GET",
+      headers: {
+        adminToken: localStorage.getItem("adminToken"),
+      },
+    })
+      .then(({ data }) => {
+        setData(data.users);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   return (
     <div className="col-6">
@@ -84,26 +91,40 @@ function getusers() {
                 {/*end tr*/}
               </thead>
               <tbody>
-                {
-                  (data===undefined)?"Unknown":data.map((item)=>{
-                    return (
-                      <tr>
-                        <td>{item.username}</td>
-                        <td>{(item.id_country===undefined)?"Unknown Country":item.id_country}</td>
-                        <td>{(item.updatedAt===undefined)?"Unknown Login Time":new Date(item.updatedAt).toLocaleDateString()+" "+new Date(item.updatedAt).toLocaleTimeString()}</td>
-                      <td>
-                      {
-                        (item.isLogin)?<span className="badge badge-boxed badge-soft-success">Login</span>:<span className="badge badge-boxed badge-soft-danger">Logout</span>
-                      }
-                      </td>
-                      </tr>
-                    );
-                  })
-
-                }
+                {data === undefined
+                  ? "Unknown"
+                  : data.map((item, i) => {
+                      return (
+                        <tr key={i}>
+                          <td>{item.username}</td>
+                          <td>
+                            {item.id_country === undefined
+                              ? "Unknown Country"
+                              : item.id_country}
+                          </td>
+                          <td>
+                            {item.updatedAt === undefined
+                              ? "Unknown Login Time"
+                              : new Date(item.updatedAt).toLocaleDateString() +
+                                " " +
+                                new Date(item.updatedAt).toLocaleTimeString()}
+                          </td>
+                          <td>
+                            {item.isLogin ? (
+                              <span className="badge badge-boxed badge-soft-success">
+                                Login
+                              </span>
+                            ) : (
+                              <span className="badge badge-boxed badge-soft-danger">
+                                Logout
+                              </span>
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })}
                 {/*end tr*/}
-                {
-                    /*
+                {/*
                     <tr>
                       <td>Noob Ivan</td>
                       <td>Indonesia</td>
@@ -157,8 +178,7 @@ function getusers() {
                         </span>
                       </td>
                     </tr>
-                    */
-                }
+                    */}
 
                 {/*end tr*/}
               </tbody>
@@ -174,8 +194,7 @@ function getusers() {
   );
 };
 
-export const TableDashboardUserNewKYCAppComponent = props => {
-
+export const TableDashboardUserNewKYCAppComponent = (props) => {
   return (
     <div className="col-6">
       <div className="card">
